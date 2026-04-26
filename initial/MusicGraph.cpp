@@ -6,6 +6,7 @@
 
 int MusicGraph::getSongIndex(const string &id) const
 {
+    // Implement linear search to find the index of a song by its ID
     for (size_t index = 0; index < songsList.size(); index++)
     {
         if (songsList[index].id == id)
@@ -18,6 +19,7 @@ int MusicGraph::getSongIndex(const string &id) const
 
 bool MusicGraph::isVisited(const string &id, const vector<string> &visitedList) const
 {
+    // Check if the given ID exists in the visitedList
     for (size_t index = 0; index < visitedList.size(); index++)
     {
         if (visitedList[index] == id)
@@ -34,7 +36,17 @@ bool MusicGraph::isVisited(const string &id, const vector<string> &visitedList) 
 
 void MusicGraph::addSong(const string &id, const string &title, const string &artist, const string &genre)
 {
-    // TODO: Add a new song to the system and add its ID as a vertex in the graph
+    // Add a new song to the system and add its ID as a vertex in the graph
+    if (getSongIndex(id) != -1)
+    {
+        return;
+    }
+
+    Song newSong = {id, title, artist, genre};
+    SongEntry newEntry = {id, newSong};
+
+    songsList.push_back(newEntry);
+    addVertex(id);
 }
 
 void MusicGraph::printSongInfo(const string &id) const
