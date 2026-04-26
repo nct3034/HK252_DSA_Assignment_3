@@ -74,7 +74,30 @@ void MusicGraph::recommendRelatedSongs(const string &startId) const
     printSongInfo(startId);
     cout << "\n-------------------------------------------------\n";
 
-    // TODO: Implement Breadth-First Search (BFS) to recommend related songs
+    // Implement Breadth-First Search (BFS) to recommend related songs
+    vector<string> visited;
+    vector<string> customQueue;
+    int head = 0;
+    visited.push_back(startId);
+    customQueue.push_back(startId);
+
+    while (head < (int)customQueue.size())
+    {
+        for (Edge e : getNeighbors(customQueue[head]))
+        {
+            string id = e.target;
+            if (!isVisited(id, visited))
+            {
+                visited.push_back(id);
+                customQueue.push_back(id);
+
+                cout << "-> ";
+                printSongInfo(id);
+                cout << endl;
+            }
+        }
+        head++;
+    }
 }
 
 // =============================================================================

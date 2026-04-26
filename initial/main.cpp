@@ -3,7 +3,8 @@
 // =============================================================================
 // Helper function to build the sample graph from the assignment description
 // =============================================================================
-void buildSampleGraph(MusicGraph& botkify) {
+void buildSampleGraph(MusicGraph &botkify)
+{
     // Add music library (6 songs)
     botkify.addSong("S01", "Chung Ta Cua Tuong Lai", "Son Tung M-TP", "Pop");
     botkify.addSong("S02", "Muon Roi Ma Sao Con", "Son Tung M-TP", "Pop");
@@ -13,18 +14,19 @@ void buildSampleGraph(MusicGraph& botkify) {
     botkify.addSong("S06", "Co Don Tren Sofa", "Ho Ngoc Ha", "Ballad");
 
     // Define connections
-    botkify.addEdge("S01", "S02", 1.5, true);    // Bidirectional
-    botkify.addEdge("S02", "S04", 3.0, false);   // Unidirectional: S02 -> S04
-    botkify.addEdge("S04", "S03", 2.0, true);    // Bidirectional
-    botkify.addEdge("S01", "S05", 2.5, true);    // Bidirectional
-    botkify.addEdge("S05", "S04", 1.0, true);    // Bidirectional
+    botkify.addEdge("S01", "S02", 1.5, true);  // Bidirectional
+    botkify.addEdge("S02", "S04", 3.0, false); // Unidirectional: S02 -> S04
+    botkify.addEdge("S04", "S03", 2.0, true);  // Bidirectional
+    botkify.addEdge("S01", "S05", 2.5, true);  // Bidirectional
+    botkify.addEdge("S05", "S04", 1.0, true);  // Bidirectional
     // S06 has no connections (isolated vertex)
 }
 
 // =============================================================================
 // TEST CASE 1: BFS - Recommend related songs
 // =============================================================================
-void testBFS(MusicGraph& botkify) {
+void testBFS(MusicGraph &botkify)
+{
     cout << "============================================================\n";
     cout << "TEST CASE 1: BFS - Recommend related songs\n";
     cout << "============================================================\n";
@@ -49,7 +51,8 @@ void testBFS(MusicGraph& botkify) {
 // =============================================================================
 // TEST CASE 2: Connected Components - Create playlist by clusters
 // =============================================================================
-void testConnectedComponents(MusicGraph& botkify) {
+void testConnectedComponents(MusicGraph &botkify)
+{
     cout << "\n============================================================\n";
     cout << "TEST CASE 2: Connected Components - Create playlist by clusters\n";
     cout << "============================================================\n";
@@ -69,7 +72,8 @@ void testConnectedComponents(MusicGraph& botkify) {
 // =============================================================================
 // TEST CASE 3: Dijkstra - Smooth song transition
 // =============================================================================
-void testDijkstra(MusicGraph& botkify) {
+void testDijkstra(MusicGraph &botkify)
+{
     cout << "\n============================================================\n";
     cout << "TEST CASE 3: Dijkstra - Smoothest transition\n";
     cout << "============================================================\n";
@@ -91,7 +95,8 @@ void testDijkstra(MusicGraph& botkify) {
 // =============================================================================
 // TEST CASE 4: In-degree - Find the network hub song
 // =============================================================================
-void testInDegree(MusicGraph& botkify) {
+void testInDegree(MusicGraph &botkify)
+{
     cout << "\n============================================================\n";
     cout << "TEST CASE 4: In-degree - Find network hub song\n";
     cout << "============================================================\n";
@@ -107,7 +112,8 @@ void testInDegree(MusicGraph& botkify) {
 // =============================================================================
 // TEST CASE 5: DFS Cycle Detection - Detect music loop
 // =============================================================================
-void testCycleDetection(MusicGraph& botkify) {
+void testCycleDetection(MusicGraph &botkify)
+{
     cout << "\n============================================================\n";
     cout << "TEST CASE 5: DFS Cycle Detection - Detect music loop\n";
     cout << "============================================================\n";
@@ -125,7 +131,8 @@ void testCycleDetection(MusicGraph& botkify) {
 // =============================================================================
 // TEST CASE 6: Graph with no cycle (DAG)
 // =============================================================================
-void testNoCycle() {
+void testNoCycle()
+{
     cout << "\n============================================================\n";
     cout << "TEST CASE 6: DAG - Graph with no cycle\n";
     cout << "============================================================\n";
@@ -146,7 +153,8 @@ void testNoCycle() {
 // =============================================================================
 // MAIN
 // =============================================================================
-int main() {
+int main()
+{
     MusicGraph botkify;
     buildSampleGraph(botkify);
 
