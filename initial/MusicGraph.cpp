@@ -108,7 +108,43 @@ void MusicGraph::generatePlaylistsByClusters() const
     cout << "\n[2] CREATE PLAYLIST BY CLUSTERS (CONNECTED COMPONENTS)\n";
     cout << "-------------------------------------------------\n";
 
-    // TODO: Find connected components and print each cluster as a playlist
+    // Find connected components and print each cluster as a playlist
+    vector<string> globalVisited;
+    int playlistCount = 0;
+
+    for (AdjacencyNode node : adjList)
+    {
+        string startIndex = node.vertex;
+        if (!isVisited(startIndex, globalVisited))
+        {
+            playlistCount++;
+            vector<string> customQueue;
+            customQueue.push_back(startIndex);
+            globalVisited.push_back(startIndex);
+            int head = 0;
+
+            cout << "=== Playlist " << playlistCount << " ===" << endl;
+
+            while (head < (int)customQueue.size())
+            {
+                string current = customQueue[head];
+                cout << "  * ";
+                printSongInfo(current);
+                cout << endl;
+
+                for (Edge e : getNeighbors(customQueue[head]))
+                {
+                    string id = e.target;
+                    if (!isVisited(id, globalVisited))
+                    {
+                        globalVisited.push_back(id);
+                        customQueue.push_back(id);
+                    }
+                }
+                head++;
+            }
+        }
+    }
 }
 
 // =============================================================================
