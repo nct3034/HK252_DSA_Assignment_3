@@ -4,12 +4,20 @@
 // PRIVATE HELPER METHODS
 // =============================================================================
 
-int MusicGraph::getSongIndex(const string& id) const {
-    // TODO: Implement linear search to find the index of a song by its ID
+int MusicGraph::getSongIndex(const string &id) const
+{
+    for (size_t i = 0; i < songsList.size(); i++)
+    {
+        if (songsList[i].id == id)
+        {
+            return i;
+        }
+    }
     return -1;
 }
 
-bool MusicGraph::isVisited(const string& id, const vector<string>& visitedList) const {
+bool MusicGraph::isVisited(const string &id, const vector<string> &visitedList) const
+{
     // TODO: Check if the given ID exists in the visitedList
     return false;
 }
@@ -18,19 +26,23 @@ bool MusicGraph::isVisited(const string& id, const vector<string>& visitedList) 
 // PUBLIC METHODS
 // =============================================================================
 
-void MusicGraph::addSong(const string& id, const string& title, const string& artist, const string& genre) {
+void MusicGraph::addSong(const string &id, const string &title, const string &artist, const string &genre)
+{
     // TODO: Add a new song to the system and add its ID as a vertex in the graph
 }
 
-void MusicGraph::printSongInfo(const string& id) const {
+void MusicGraph::printSongInfo(const string &id) const
+{
     // TODO: Print the song information in the required format
 }
 
 // =============================================================================
 // REQUIREMENT 1: Recommend related songs (BFS)
 // =============================================================================
-void MusicGraph::recommendRelatedSongs(const string& startId) const {
-    if (!this->hasVertex(startId)) return;
+void MusicGraph::recommendRelatedSongs(const string &startId) const
+{
+    if (!this->hasVertex(startId))
+        return;
 
     cout << "\n[1] SUGGEST RELATED SONGS FOR: ";
     printSongInfo(startId);
@@ -42,7 +54,8 @@ void MusicGraph::recommendRelatedSongs(const string& startId) const {
 // =============================================================================
 // REQUIREMENT 2: Create playlist by clusters (Connected Components using BFS)
 // =============================================================================
-void MusicGraph::generatePlaylistsByClusters() const {
+void MusicGraph::generatePlaylistsByClusters() const
+{
     cout << "\n[2] CREATE PLAYLIST BY CLUSTERS (CONNECTED COMPONENTS)\n";
     cout << "-------------------------------------------------\n";
 
@@ -52,17 +65,23 @@ void MusicGraph::generatePlaylistsByClusters() const {
 // =============================================================================
 // REQUIREMENT 3: Smooth song transition (Dijkstra's Algorithm)
 // =============================================================================
-void MusicGraph::findSmoothTransition(const string& startId, const string& endId) const {
+void MusicGraph::findSmoothTransition(const string &startId, const string &endId) const
+{
     cout << "\n[3] SMOOTHEST TRANSITION (DIJKSTRA)\n";
-    cout << "From: "; printSongInfo(startId); cout << "\n";
-    cout << "To: "; printSongInfo(endId); cout << "\n";
+    cout << "From: ";
+    printSongInfo(startId);
+    cout << "\n";
+    cout << "To: ";
+    printSongInfo(endId);
+    cout << "\n";
     cout << "-------------------------------------------------\n";
 
     int n = this->adjList.size();
     int startIdx = this->getVertexIndex(startId);
     int endIdx = this->getVertexIndex(endId);
 
-    if (startIdx == -1 || endIdx == -1) {
+    if (startIdx == -1 || endIdx == -1)
+    {
         cout << "Error: Song not found!\n";
         return;
     }
@@ -73,7 +92,8 @@ void MusicGraph::findSmoothTransition(const string& startId, const string& endId
 // =============================================================================
 // REQUIREMENT 4: Find the network hub song (In-degree Calculation)
 // =============================================================================
-void MusicGraph::findMostPopularSong() const {
+void MusicGraph::findMostPopularSong() const
+{
     cout << "\n[4] FIND NETWORK HUB SONG (IN-DEGREE)\n";
     cout << "-------------------------------------------------\n";
 
@@ -85,13 +105,15 @@ void MusicGraph::findMostPopularSong() const {
 // =============================================================================
 
 // DFS recursive helper function
-bool MusicGraph::dfsCycleHelper(int idx, vector<bool>& visited, vector<bool>& recursionStack,
-                                 vector<int>& parent, bool& found) const {
+bool MusicGraph::dfsCycleHelper(int idx, vector<bool> &visited, vector<bool> &recursionStack,
+                                vector<int> &parent, bool &found) const
+{
     // TODO: Implement the recursive DFS logic to detect cycles
     return false;
 }
 
-void MusicGraph::detectMusicLoop() const {
+void MusicGraph::detectMusicLoop() const
+{
     cout << "\n[5] DETECT MUSIC LOOP (DFS CYCLE DETECTION)\n";
     cout << "-------------------------------------------------\n";
 
