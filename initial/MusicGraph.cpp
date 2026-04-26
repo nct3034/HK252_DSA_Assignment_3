@@ -51,7 +51,15 @@ void MusicGraph::addSong(const string &id, const string &title, const string &ar
 
 void MusicGraph::printSongInfo(const string &id) const
 {
-    // TODO: Print the song information in the required format
+    // Print the song information in the required format
+    int index = getSongIndex(id);
+    if (index == -1)
+    {
+        return;
+    }
+
+    Song song = songsList[index].data;
+    cout << "[" << song.id << "] " << song.title << " - " << song.artist;
 }
 
 // =============================================================================
