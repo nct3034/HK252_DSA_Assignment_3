@@ -6,11 +6,11 @@
 
 int MusicGraph::getSongIndex(const string &id) const
 {
-    for (size_t i = 0; i < songsList.size(); i++)
+    for (size_t index = 0; index < songsList.size(); index++)
     {
-        if (songsList[i].id == id)
+        if (songsList[index].id == id)
         {
-            return i;
+            return index;
         }
     }
     return -1;
@@ -18,7 +18,13 @@ int MusicGraph::getSongIndex(const string &id) const
 
 bool MusicGraph::isVisited(const string &id, const vector<string> &visitedList) const
 {
-    // TODO: Check if the given ID exists in the visitedList
+    for (size_t index = 0; index < visitedList.size(); index++)
+    {
+        if (visitedList[index] == id)
+        {
+            return true;
+        }
+    }
     return false;
 }
 
