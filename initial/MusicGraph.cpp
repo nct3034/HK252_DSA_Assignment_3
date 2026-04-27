@@ -40,7 +40,7 @@ void MusicGraph::addSong(const string &id, const string &title,
   SongEntry newEntry = {id, newSong};
 
   songsList.push_back(newEntry);
-  addVertex(id);
+  this->addVertex(id);
 }
 
 void MusicGraph::printSongInfo(const string &id) const {
@@ -73,7 +73,7 @@ void MusicGraph::recommendRelatedSongs(const string &startId) const {
   customQueue.push_back(startId);
 
   while (head < (int)customQueue.size()) {
-    for (Edge e : getNeighbors(customQueue[head])) {
+    for (Edge e : this->getNeighbors(customQueue[head])) {
       string id = e.target;
       if (!isVisited(id, visited)) {
         visited.push_back(id);
@@ -99,7 +99,7 @@ void MusicGraph::generatePlaylistsByClusters() const {
   vector<string> globalVisited;
   int playlistCount = 0;
 
-  for (AdjacencyNode node : adjList) {
+  for (AdjacencyNode node : this->adjList) {
     string startIndex = node.vertex;
     if (!isVisited(startIndex, globalVisited)) {
       playlistCount++;
@@ -116,7 +116,7 @@ void MusicGraph::generatePlaylistsByClusters() const {
         printSongInfo(current);
         cout << endl;
 
-        for (Edge e : getNeighbors(customQueue[head])) {
+        for (Edge e : this->getNeighbors(customQueue[head])) {
           string id = e.target;
           if (!isVisited(id, globalVisited)) {
             globalVisited.push_back(id);
@@ -177,8 +177,8 @@ void MusicGraph::findSmoothTransition(const string &startId,
     }
     visited[u] = true;
 
-    for (Edge e : adjList[u].neighbors) {
-      int v = getVertexIndex(e.target);
+    for (Edge e : this->adjList[u].neighbors) {
+      int v = this->getVertexIndex(e.target);
       if (!visited[v] && dist[u] + e.weight < dist[v]) {
         dist[v] = dist[u] + e.weight;
         prev[v] = u;
@@ -194,7 +194,7 @@ void MusicGraph::findSmoothTransition(const string &startId,
   vector<string> path;
   int cur = endIdx;
   while (cur != -1) {
-    path.push_back(adjList[cur].vertex);
+    path.push_back(this->adjList[cur].vertex);
     cur = prev[cur];
   }
 
@@ -220,15 +220,15 @@ void MusicGraph::findMostPopularSong() const {
   // Calculate the in-degree of all vertices and
   // find the one with the maximum value
 
-  int n = adjList.size();
+  int n = this->adjList.size();
   if (n == 0)
     return;
 
   vector<int> inDegree(n, 0);
 
   for (int i = 0; i < n; i++) {
-    for (Edge e : adjList[i].neighbors) {
-      int v = getVertexIndex(e.target);
+    for (Edge e : this->adjList[i].neighbors) {
+      int v = this->getVertexIndex(e.target);
       if (v != -1) {
         inDegree[v]++;
       }
@@ -246,7 +246,7 @@ void MusicGraph::findMostPopularSong() const {
   for (int i = 0; i < n; i++) {
     if (inDegree[i] == maxInDegree) {
       cout << "  ";
-      printSongInfo(adjList[i].vertex);
+      printSongInfo(this->adjList[i].vertex);
       cout << "\n";
     }
   }
