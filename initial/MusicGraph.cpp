@@ -217,8 +217,40 @@ void MusicGraph::findMostPopularSong() const {
   cout << "\n[4] FIND NETWORK HUB SONG (IN-DEGREE)\n";
   cout << "-------------------------------------------------\n";
 
-  // TODO: Calculate the in-degree of all vertices and find the one with the
-  // maximum value
+  // Calculate the in-degree of all vertices and
+  // find the one with the maximum value
+
+  int n = adjList.size();
+  if (n == 0)
+    return;
+
+  vector<int> inDegree(n, 0);
+
+  for (int i = 0; i < n; i++) {
+    for (Edge e : adjList[i].neighbors) {
+      int v = getVertexIndex(e.target);
+      if (v != -1) {
+        inDegree[v]++;
+      }
+    }
+  }
+
+  int maxInDegree = 0;
+  for (int i = 0; i < n; i++) {
+    if (maxInDegree < inDegree[i]) {
+      maxInDegree = inDegree[i];
+    }
+  }
+
+  cout << "-> Network Hub Song: \n";
+  for (int i = 0; i < n; i++) {
+    if (inDegree[i] == maxInDegree) {
+      cout << "  ";
+      printSongInfo(adjList[i].vertex);
+      cout << "\n";
+    }
+  }
+  cout << "(In-degree: " << maxInDegree << ")\n";
 }
 
 // =============================================================================
