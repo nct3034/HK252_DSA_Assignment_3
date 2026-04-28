@@ -261,7 +261,28 @@ void MusicGraph::findMostPopularSong() const {
 bool MusicGraph::dfsCycleHelper(int idx, vector<bool> &visited,
                                 vector<bool> &recursionStack,
                                 vector<int> &parent, bool &found) const {
-  // TODO: Implement the recursive DFS logic to detect cycles
+  // Implement the recursive DFS logic to detect cycles
+  visited[idx] = true;
+  recursionStack[idx] = true;
+
+  for (Edge e : this->adjList[idx].neighbors) {
+    int v = this->getVertexIndex(e.target);
+
+    if (!visited[v]) {
+      parent[v] = idx;
+      if (dfsCycleHelper(v, visited, recursionStack, parent, found)) {
+        return true;
+      }
+    } else {
+      if (recursionStack[v]) {
+        found = true;
+        parent[v] = idx;
+        return true;
+      }
+    }
+  }
+
+  recursionStack[idx] = false;
   return false;
 }
 
@@ -269,5 +290,5 @@ void MusicGraph::detectMusicLoop() const {
   cout << "\n[5] DETECT MUSIC LOOP (DFS CYCLE DETECTION)\n";
   cout << "-------------------------------------------------\n";
 
-  // TODO: Initialize required arrays and start DFS to detect a music loop
+  // Initialize required arrays and start DFS to detect a music loop
 }
