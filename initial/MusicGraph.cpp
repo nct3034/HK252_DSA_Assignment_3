@@ -275,8 +275,26 @@ bool MusicGraph::dfsCycleHelper(int idx, vector<bool> &visited,
       }
     } else {
       if (recursionStack[v]) {
+        // Detect loop
         found = true;
-        parent[v] = idx;
+        vector<string> cycle;
+
+        cycle.push_back(this->adjList[v].vertex);
+        int temp = idx;
+        while (temp != v) {
+          cycle.push_back(this->adjList[temp].vertex);
+          temp = parent[temp];
+        }
+        cycle.push_back(this->adjList[v].vertex);
+
+        cout << "-> Music loop detected!\n";
+        cout << "-> Loop:\n";
+        for (int i = cycle.size() - 1; i >= 0; i--) {
+          cout << "  ";
+          printSongInfo(cycle[i]);
+          cout << "\n";
+        }
+
         return true;
       }
     }
@@ -291,4 +309,26 @@ void MusicGraph::detectMusicLoop() const {
   cout << "-------------------------------------------------\n";
 
   // Initialize required arrays and start DFS to detect a music loop
+  int n = this->adjList.size();
+  if (n == 0) {
+    cout << "No music loop detected.\n";
+    return;
+  }
+
+  vector<bool> visited(n, false);
+  vector<bool> recursionStack(n, false);
+  vector<int> parent(n, -1);
+  bool found = false;
+
+  for (int i = 0; i < n; i++) {
+    if (!visited[i]) {
+      if (dfsCycleHelper(i, visited, recursionStack, parent, found)) {
+        return;
+      }
+    }
+  }
+
+  if (!found) {
+    cout << "No music loop detected.\n";
+  }
 }
