@@ -228,13 +228,13 @@ void MusicGraph::findSmoothTransition(const string &startId,
     cur = prev[cur];
   }
 
-  cout << "Total Deviation: " << dist[endIdx] << "\n";
-  cout << "Playback Order:\n";
+  cout << "-> Total Deviation (Cost): " << dist[endIdx] << "\n";
+  cout << "-> Playback Order:\n";
 
   int step = 1;
   for (int i = path.size() - 1; i >= 0; i--)
   {
-    cout << "  " << step << ". ";
+    cout << "   " << step << ". ";
     printSongInfo(path[i]);
     cout << "\n";
     step++;
@@ -284,13 +284,13 @@ void MusicGraph::findMostPopularSong() const
   {
     if (inDegree[i] == maxInDegree)
     {
-      cout << "  ";
+      cout << "   ";
       printSongInfo(this->adjList[i].vertex);
       cout << "\n";
       break;
     }
   }
-  cout << "(In-degree: " << maxInDegree << ")\n";
+  cout << "   (In-degree: " << maxInDegree << ")\n";
 }
 
 // =============================================================================
@@ -339,7 +339,7 @@ bool MusicGraph::dfsCycleHelper(int idx, vector<bool> &visited,
         cout << "-> Loop:\n";
         for (int i = cycle.size() - 1; i >= 0; i--)
         {
-          cout << "  ";
+          cout << "   ";
           printSongInfo(cycle[i]);
           cout << "\n";
         }
