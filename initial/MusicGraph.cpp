@@ -134,7 +134,7 @@ void MusicGraph::generatePlaylistsByClusters() const
         printSongInfo(current);
         cout << endl;
 
-        for (Edge e : this->getNeighbors(customQueue[head]))
+        for (Edge e : this->getNeighbors(current))
         {
           string id = e.target;
           if (!isVisited(id, globalVisited))
@@ -143,6 +143,24 @@ void MusicGraph::generatePlaylistsByClusters() const
             customQueue.push_back(id);
           }
         }
+
+        for (AdjacencyNode potentialNode : this->adjList)
+        {
+          string potentialSourceId = potentialNode.vertex;
+          if (!isVisited(potentialSourceId, globalVisited))
+          {
+            for (Edge e : potentialNode.neighbors)
+            {
+              if (e.target == current)
+              {
+                globalVisited.push_back(potentialSourceId);
+                customQueue.push_back(potentialSourceId);
+                break;
+              }
+            }
+          }
+        }
+
         head++;
       }
     }
